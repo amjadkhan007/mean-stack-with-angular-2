@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <h1 class="page-header">Edit Blog</h1>
+  </div>
+</div>
+  
+  
+
+<div class="row show-hide-message" *ngIf="message">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div [ngClass] = "messageClass">
+        {{ message }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <form (submit) = "onBlogUpdateSubmit()" *ngIf="!loading">
+      
+      <!-- Title Dive --> 
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input [disabled]="processing" type="text" name="title" id="title" placeholder="*Blog Title" class="form-control" [(ngModel)]="blog.title">
+      </div>
+      
+      <!-- Body Div -->
+      <div class="form-group">
+        <label for="body">Body</label>
+        <textarea [disabled]="processing" rows="10" cols="30" name="body" id="body" placeholder="*Blog Body" class="form-control" [(ngModel)]="blog.body">
+        </textarea>
+      </div>
+
+      <a [routerLink]="['/delete-blog/', blog.id]"><button [disabled]="processing" class="btn btn-danger">Delete</button></a>
+      <button [disabled]="processing" class="btn btn-success" (click) = "goBack()">Go Back</button>
+      <button [disabled]="processing" class="btn btn-info" name="save" type="submit">Save Changes</button>
+    </form>
+
+  </div>
+</div>

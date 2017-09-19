@@ -1,0 +1,64 @@
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2">
+      <h1 class="page-header">Login Page</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2">
+    <div [ngClass] = "messageClass">
+      {{ message }}
+    </div>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2">
+      <div class="form-box">
+        <div class="form-top">
+          <div class="form-top-left">
+            <h3>Sign in</h3>
+              <p>Fill in the form below to get instant access:</p>
+          </div>
+          <div class="form-top-right">
+            <i class="fa fa-key"></i>
+          </div>
+        </div>
+        <div class="form-bottom">
+          <form class="registration-form" [formGroup] = "form" (submit) = "onLoginSubmit()">
+            
+            <!-- Username Div -->
+            <div class="form-group">
+              <label class="sr-only" for="username">User Name</label>
+              <div [ngClass] = "{'has-error': ( form.controls.username.errors && form.controls.username.dirty ), 'has-success' : !form.controls.username.errors}">
+                <input type="text" name="username" placeholder="Username ... " class="form-first-name form-control" id="username" formControlName = "username" autocomplete="off">
+                <ul class="help-block"> 
+                  <li *ngIf="( form.controls.username.errors?.required && form.controls.username.dirty )"> User Name is required </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Password Div -->
+            <div class="form-group">
+              <label class="sr-only" for="password">Password</label>
+              <div [ngClass] = "{'has-error': ( form.controls.password.errors && form.controls.password.dirty ), 'has-success' : !form.controls.password.errors }">
+                <input type="password" name="password" placeholder="Password ..." class="form-last-name form-control" id="password" formControlName = "password">
+                <ul class="help-block">
+                  <li *ngIf="( form.controls.password.errors?.required && form.controls.password.dirty)">Password is required</li>
+                </ul>
+              </div>
+            </div>
+                          
+            <button [disabled]="!form.valid || processing" type="submit" class="btn">Log in!</button>
+          </form>
+          <hr>
+          <!-- <p>Username: {{ form.controls.username.value }}</p>
+          <p>Email: {{ form.controls.email.value }}</p>
+          <p>Password: {{ form.controls.password.value }}</p>
+          <p>Confirm: {{ form.controls.confirm.value }}</p> -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+  
