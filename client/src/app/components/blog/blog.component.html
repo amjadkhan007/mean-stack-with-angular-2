@@ -60,81 +60,16 @@
     <div *ngIf="!newPost">
       <div *ngFor="let post of blogPosts" class="panel">
         <div class="panel-heading">
-          <h2 class="panel-title"><strong>{{ post.title }}</strong></h2>
-        </div><!-- panel-heading div end -->
-        <div style="margin-left: 20px;">
-          <small><strong>By: </strong>{{ post.createdBy }}, &nbsp; &nbsp;{{ post.createdAt | date:'MM dd, yyyy HH:mm' }}</small>
+          <div style="margin-left: 5px; margin-bottom: 10px;">
+          <small><strong>{{ post.createdBy }}</strong></small>
         </div>
-        <div class="panel-body">
-          <p>{{ post.body }}</p>
-        </div><!-- panel-body div end -->
-        <div class="panel-footer">
-         <!--  <p><strong>Posted By: </strong>{{ post.createdBy }}</p>
-          <p><strong>Date: </strong>{{ stringAsDate(post.createdAt) | date:'MMMM dd, yyyy HH:mm' }}</p>
-           -->
-          <a [routerLink]="['/edit-blog', post._id]" *ngIf="username === post.createdBy"><button class="btn btn-sm btn-info">Edit</button></a>
-          <a [routerLink]="['/delete-blog', post._id]" *ngIf="username === post.createdBy"><button class="btn btn-sm btn-danger">Delete</button></a>
-          
-          <!-- Likes Dropdown -->
-          <div class="dropdown">
-            <button [disabled]="post.likedBy.indexOf(username) > -1 || loadingBlogs" class="btn btn-sm btn-success" *ngIf="username !== post.createdBy" (click) = "likeBlog(post._id)"><span class="glyphicon glyphicon-thumbs-up">&nbsp; </span><!-- Likes:  -->{{post.likes}}</button>
-            <div class="dropdown-content">
-              <a [routerLink]="['/user', liker]" *ngFor="let liker of post.likedBy">{{ liker }}</a>
-              
-            </div>
-          </div>
-
-          <!-- Dislikes Dropdown -->
-          <div class="dropdown">
-            <button [disabled]="post.dislikedBy.indexOf(username) > -1 || loadingBlogs" class="btn btn-sm btn-warning" *ngIf="username !== post.createdBy" (click) = "dislikeBlog(post._id)"><small></small><span class="glyphicon glyphicon-thumbs-down">&nbsp; </span>{{ post.dislikes }} </button>
-             <div class="dropdown-content">
-              <a [routerLink]="['/user', disliker]" *ngFor="let disliker of post.dislikedBy">{{ disliker }}</a>
-              
-            </div>
-          </div> 
+        <h2 class="panel-title"><strong>{{ post.title }}</strong></h2>
+        </div><!-- panel-heading div end -->
         
-        </div><!-- panel-footer div end -->
-
-        <ul class="list-group">
-          <li class="list-group-item">
-            <button class="btn btn-sm btn-danger" (click) = "draftComment(post._id)" [disabled]="newComment.indexOf(post._id) > -1">Post Comment</button>
-            <br />
-            <br />
-            <div *ngIf="newComment.indexOf(post._id) > -1">
-              <form [formGroup]="commentForm">
-                <textarea name="" id="" cols="30" rows="10" class="form-control" formControlName = "comments"></textarea>
-                
-                <div [ngClass]="">
-                  <ul class="help-block">
-                    <li *ngIf="commentForm.controls.comments.errors?.required && commentForm.controls.comments.dirty">This field is required!</li>
-                    <li *ngIf="(commentForm.controls.comments.errors?.minlength && commentForm.controls.comments.dirty) || (commentForm.controls.comments.errors?.maxlength && commentForm.controls.comments.dirty)">Comments must be at least 1 character but no more than 200!</li>
-                  </ul>
-                </div>
-
-                <button [disabled]="!commentForm.valid || processing" type="submit" class="btn btn-sm btn-info" (click) = "postComment(post._id)">Submit Comment</button>
-                <button [disabled]="processing" class="btn btn-sm btn-danger" (click) = "cancelComment(post._id)">Cancel</button>
-              </form>
-            </div>                    
-          </li>
-          <li class="list-group-item" *ngIf="enabledComments.indexOf(post._id) === -1 && post.comments.length > 0">
-            <span (click) = "expandComments(post._id)">
-              Show Comments &nbsp; &nbsp; &nbsp;
-              <div  class="glyphicon glyphicon-comment"></div>
-            </span>
-          </li>
-          <li class="list-group-item" *ngIf="enabledComments.indexOf(post._id) > -1">
-            <span (click) = "collapsComments(post._id)">
-              Hide Comments &nbsp; &nbsp; &nbsp;
-              <div  class="glyphicon glyphicon-comment"></div>
-            </span>
-          </li> 
-
-          <div *ngIf="enabledComments.indexOf(post._id) > -1">
-            <li class="list-group-item" *ngFor="let comment of post.comments"> <strong >{{ comment.commentator }}: </strong> 
-            {{ comment.commnet}} &nbsp;&nbsp;&nbsp; <small>{{comment.commentDate | date: 'MMM dd, yyyy hh:mm:ss'}}</small>
-            </li>
-          </div>
-        </ul>
+        <div class="panel-body">
+          <p><a style="color: #2c3e50;" [routerLink]="['/single', post._id]" >{{ post.body  | excerpt:140}} </a></p>
+        </div><!-- panel-body div end -->
+        
        
       </div><!-- panel panel-primary div end -->
     </div><!-- not new post div end -->

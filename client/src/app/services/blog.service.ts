@@ -40,6 +40,11 @@ export class BlogService {
     return this.http.get(this.domain + '/blogs/singleBlog/' + id, this.options).map(res => res.json());
   }
 
+  getSingle(id) {
+    this.createAuthenticationHeaders();
+    return this.http.get(this.domain + '/blogs/single/' + id, this.options).map(res => res.json());
+  }
+
   updateBlog(blog) {
     this.createAuthenticationHeaders();
     return this.http.put(this.domain + '/blogs/updateBlog/', blog, this.options).map(res => res.json());

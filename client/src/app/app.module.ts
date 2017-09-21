@@ -23,6 +23,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { NotAuthGuard } from './guards/notauth.guard';
 import { DeleteBlogComponent } from './components/blog/delete-blog/delete-blog.component';
 import { PublicProfileComponent } from './components/public-profile/public-profile.component';
+import { SingleBlogComponent } from './components/blog/single-blog/single-blog.component';
+import {ExcerptFilter} from './filters/excerpt.filter';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { PublicProfileComponent } from './components/public-profile/public-profi
     BlogComponent,
     EditBlogComponent,
     DeleteBlogComponent,
-    PublicProfileComponent
+    PublicProfileComponent,
+    SingleBlogComponent,
+    ExcerptFilter
   ],
   imports: [
     BrowserModule,

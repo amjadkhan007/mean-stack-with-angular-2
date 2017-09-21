@@ -15,6 +15,7 @@ import { EditBlogComponent } from './components/blog/edit-blog/edit-blog.compone
 import { AuthGuard } from './guards/auth.guard';
 import { NotAuthGuard } from './guards/notauth.guard';
 import { DeleteBlogComponent } from './components/blog/delete-blog/delete-blog.component';
+import { SingleBlogComponent } from './components/blog/single-blog/single-blog.component';
 
 const appRoutes: Routes = [
   {
@@ -67,6 +68,11 @@ const appRoutes: Routes = [
   {
     path: 'delete-blog/:id',
     component: DeleteBlogComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'single/:id',
+    component: SingleBlogComponent,
     canActivate: [AuthGuard]
   },
   { path: '',

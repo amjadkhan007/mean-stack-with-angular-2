@@ -103,6 +103,35 @@ module.exports = (router) => {
     
   });
 
+  router.get('/single/:id', (req, res) => {
+    if(!req.params.id) {
+      res.json({ success: false, message: 'Blog Id not provided '});
+    } else {
+      Blog.findOne({ _id: req.params.id }, (err, blog) => {
+        if(err) {
+          res.json({success: false, message: 'Not a valid blog id'});
+        } else {
+          if(!blog) {
+            res.json({success: false, mesage: 'Blog not found'});
+          } else {
+            User.findOne({ _id: req.decoded.userId }, (err, user) => {
+              if(err) {
+                res.json({ success: false, message: err});
+              } else {
+                if(!user) {
+                  res.json({ success: false, message: 'Could not Authenticate User'}); 
+                } else {
+                  res.json({ success: true, message: 'Success', blog: blog});
+                }
+              }
+            });
+          }
+        }
+      });
+    }
+    
+  });
+
   router.put('/updateBlog/', (req, res) => {
    if(!req.body._id) {
     res.json({ success: false, message: 'Blog Id not provided '});
